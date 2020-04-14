@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 // import java.util.Optional;
 
@@ -41,5 +42,14 @@ public class EmployeeRepository implements EmployeeRepositoryInf {
   public Employee findById(@NotNull Long id) {
     Employee query = manager.find(Employee.class, id);
     return query;
+  }
+
+  @Override
+  @Transactional
+  public int update(@NotNull Long id, @NotBlank String name) {
+      return manager.createQuery("UPDATE employee g SET name = :name where id = :id")
+              .setParameter("name", name)
+              .setParameter("id", id)
+              .executeUpdate();
   }
 }

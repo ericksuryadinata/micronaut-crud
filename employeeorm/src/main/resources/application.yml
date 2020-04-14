@@ -2,7 +2,7 @@
 micronaut:
   application:
     name: employeeorm
-
+    
 ---
 datasources:
   default:
